@@ -1,38 +1,49 @@
 require('dotenv').config();
 // Require the necessary discord.js classes
-const { Client, Intents } = require('discord.js');
+const fs = require('node:fs');
+const { Client, Collection, Intents } = require('discord.js');
 const token = process.env.TOKEN;
 const clientId = process.env.CLIENTID;
 const guildId = process.env.GUILDID;
 
+
 // const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"] });
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, "GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"] });
 
-
+// Start client
 client.once('ready', () => {
 	console.log('Ready!');
 });
 
+// get commands
+client.commands = new Collection();
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+for (const file of commandFiles) {
+	const command = require(`./commands/${file}`);
+	// Set a new item in the Collection
+	// With the key as the command name and the value as the exported module
+	client.commands.set(command.data.name, command);
+}
 
+// commands "routing"
 client.on('interactionCreate', async interaction => {
-    console.log("WORKEDD")
+	console.log(`${interaction.user.tag} in #${interaction.channel.name} triggered an interaction.`);
 	if (!interaction.isCommand()) return;
+	const command = client.commands.get(interaction.commandName);
+	if (!command) return;
 
-	const { commandName } = interaction;
-    
-	if (commandName === 'ping') {
-		console.log("first")
-		await interaction.reply('Pong!');
-	} else if (commandName === 'server') {
-		await interaction.reply('Server info.');
-	} else if (commandName === 'user') {
-		await interaction.reply('User info.');
+	try {
+		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
 
-client.on("messageCreate", async message => {
 
-   
+
+
+client.on("messageCreate", async message => {
     const content = message.content
     console.log(content)
 
@@ -44,7 +55,8 @@ client.on("messageCreate", async message => {
 		await message.reply('User info.');
 	}
 });
-// Login to Discord with your client's token
 
+
+// Login to Discord with your client's token
 client.login(token);
 
