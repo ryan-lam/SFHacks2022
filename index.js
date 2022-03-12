@@ -6,7 +6,7 @@ const clientId = process.env.CLIENTID;
 const guildId = process.env.GUILDID;
 
 // const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"] });
-const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, "GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"] });
 
 
 client.once('ready', () => {
@@ -21,6 +21,7 @@ client.on('interactionCreate', async interaction => {
 	const { commandName } = interaction;
     
 	if (commandName === 'ping') {
+		console.log("first")
 		await interaction.reply('Pong!');
 	} else if (commandName === 'server') {
 		await interaction.reply('Server info.');
