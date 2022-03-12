@@ -8,7 +8,7 @@ module.exports = {
 
 	async execute(interaction) {
         const championName = interaction.options.getString('name');
-
+        
         if (championName == null) {
             await interaction.reply('Please enter a champion name');
         } else {
