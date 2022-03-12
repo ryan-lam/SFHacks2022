@@ -2,11 +2,17 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('champ')
-		.setDescription('Champ')
-        .addStringOption(option => option.setName('text').setDescription('Enter some text')),
+		.setName('champion')
+		.setDescription('View stats of a Champion')
+        .addStringOption(option => option.setName('name').setDescription('Enter Champion name')),
+
 	async execute(interaction) {
-        const text = interaction.options.getString('text');
-		await interaction.reply(`${text}`);
+        const championName = interaction.options.getString('name');
+
+        if (championName == null) {
+            await interaction.reply('Please enter a champion name');
+        } else {
+            await interaction.reply(`${championName}`);
+        }
 	},
 };
