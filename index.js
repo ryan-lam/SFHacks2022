@@ -43,6 +43,7 @@ client.on('interactionCreate', async interaction => {
 		if (deferCommands.includes(interaction.commandName)) {
 			console.log('Command Reply Defered')
 			await interaction.deferReply();
+			await wait(2500)
 			await command.execute(interaction);
 		} else {
 			await command.execute(interaction);

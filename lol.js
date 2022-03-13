@@ -1,6 +1,5 @@
 const leagueData = require("./leagueData/championFull.json")
 
-const patch = leagueData.version
 const listOfChampions = [
   'Aatrox',       'Ahri',       'Akali',       'Akshan',     'Alistar',
   'Amumu',        'Anivia',     'Annie',       'Aphelios',   'Ashe',
@@ -41,6 +40,5 @@ console.log(listOfChampionsLower, listOfChampions)
 
 const championStats = (championName) => {
     championName.toLowerCase()
-    for 
 
 }
