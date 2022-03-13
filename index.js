@@ -39,7 +39,7 @@ client.on('interactionCreate', async interaction => {
 
 
 	try {
-		const deferCommands = ['champion', 'rotations']
+		const deferCommands = ['champion', 'rotations', 'status']
 		if (deferCommands.includes(interaction.commandName)) {
 			console.log('Command Reply Defered')
 			await interaction.deferReply();
