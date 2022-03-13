@@ -11,7 +11,6 @@ module.exports = {
 		.setName('rotations')
 		.setDescription('Replies with this week\'s champion rotations'),
 
-
 	async execute(interaction) {
 
         const rotationData = await axios({
@@ -21,13 +20,20 @@ module.exports = {
         const freeChampionIds = rotationData.data.freeChampionIds.map((Id) => {
             const champion = leagueData.keys[`${Id}`]
             return `- ${champion}\n`
-        }).join('')
+        }).sort().join('')
         const freeChampionIdsForNewPlayers = rotationData.data.freeChampionIdsForNewPlayers.map((Id) => {
             const champion = leagueData.keys[`${Id}`]
             return `- ${champion}\n`
-        }).join('')
-        console.log(freeChampionIds, freeChampionIdsForNewPlayers)
+        }).sort().join('')
 
-		await interaction.editReply(`${freeChampionIds}`);
+        const embed = new MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('Champion Rotations (Week of March 8-15, 2022)')
+            .setThumbnail('https://static.wikia.nocookie.net/leagueoflegends/images/9/9a/League_of_Legends_Update_Logo_Concept_05.jpg/revision/latest/scale-to-width-down/250?cb=20191029062637')
+            .addFields(
+                {name: 'Everyone ', value: `${freeChampionIds}`, inline: true},
+                {name: 'Players under lv10', value: `${freeChampionIdsForNewPlayers}`, inline: true},
+            ).setTimestamp()
+        await interaction.editReply({ephemeral: true, embeds: [embed] });
 	},
 };

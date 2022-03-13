@@ -41,6 +41,7 @@ const listOfChampions = [
   ]
 const listOfChampionsLower = listOfChampions.slice().map((str) => str.toLowerCase())
 
+
 module.exports = {
 
 	data: new SlashCommandBuilder()
