@@ -89,7 +89,7 @@ client.on("messageCreate", async message => {
 							.setStyle('DANGER'),
 					);
 					message.reply({ ephemeral: true, embeds: [embed], components: [row] });
-
+					message.delete();
 				} else {
 					console.log("No toxicity detected")
 				}
