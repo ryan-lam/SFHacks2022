@@ -2,7 +2,7 @@ require('dotenv').config();
 // Require the necessary discord.js classes
 const fs = require('node:fs');
 const { Client, Collection, Intents, MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
-const wait = require('node:timers/promises').setTimeout;
+// const wait = require('node:timers/promises').setTimeout;
 const token = process.env.TOKEN;
 const clientId = process.env.CLIENTID;
 const guildId = process.env.GUILDID;
@@ -39,7 +39,7 @@ client.on('interactionCreate', async interaction => {
 
 
 	try {
-		const deferCommands = ['champion', 'rotations', 'status']
+		const deferCommands = ['champion', 'rotations', 'status', 'stats']
 		if (deferCommands.includes(interaction.commandName)) {
 			console.log('Command Reply Defered')
 			await interaction.deferReply();
