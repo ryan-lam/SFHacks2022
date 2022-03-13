@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const CHAMPION_JSON_PATH = process.env.CHAMPION_JSON_PATH
 const leagueData = require(CHAMPION_JSON_PATH)
-const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const axios = require('axios').default
 
 
