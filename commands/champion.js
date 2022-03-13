@@ -55,6 +55,9 @@ module.exports = {
         const idx =  listOfChampionsLower.indexOf(championId)
 
         if (idx < 0) {
+
+            console.log(util.inspect(champLink), false, null, true)
+
             await interaction.editReply('Please enter a valid champion name');
 
         } else {

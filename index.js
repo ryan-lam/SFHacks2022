@@ -103,9 +103,11 @@ client.on("messageCreate", async message => {
 							.setStyle('DANGER'),
 					);
 					console.log("444444")
-					message.reply({ ephemeral: true, embeds: [embed], components: [row] });
+					// message.reply({ ephemeral: true, embeds: [embed], components: [row] });
+					message.reply({ ephemeral: true, embeds: [embed]});
+					// message.reply("THAT IS NOT NICE!");
 					console.log("555555")
-					message.delete();
+					// message.delete().then(msg => console.log(`Deleted message from ${msg.author.username}`)).catch(console.error);
 					console.log("666666")
 				} else {
 					console.log("No toxicity detected")
