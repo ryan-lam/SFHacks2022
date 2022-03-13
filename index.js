@@ -104,7 +104,9 @@ client.on("messageCreate", async message => {
 					);
 					console.log("444444")
 					message.reply({ ephemeral: true, embeds: [embed], components: [row] });
+					console.log("555555")
 					message.delete();
+					console.log("666666")
 				} else {
 					console.log("No toxicity detected")
 				}
