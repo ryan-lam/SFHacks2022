@@ -201,6 +201,7 @@ champLink["Zilean"]="https://lh3.googleusercontent.com/fife/AAWUweW5icDjBDCbWLCV
 champLink["Zoe"]="https://lh3.googleusercontent.com/fife/AAWUweWw2hUjn_HQ5-aDCy0_Dr2Qj8GZY2bp8v-IG03T2vsfmeTjerVasocaySWoDY3FeeIdyN-tTOGDogHFVeImXCNTOjrRA9M6GjpW_Bd5asBUJQiG4_soQoMi5bQpFVGPblfwMPpU5ZlL6_JiKn7cjsUnHTi-uzZiK6OXpG2HhAvFKVS86M7ZNdYhh-BsnHQzWNKkvKasrts3iy0R5xev4AzwukdjKgNZxPgsSYQ-R_ddm-9f7tVj16W-ffv10q4hqOG4UDgAwLA-4I9NRV77MbCLM7nCbjo4VzC2L2vhNwWkGu48S_Oj27YQ7JKPQPNrSJtGPGWEdZXZNufkSyND-KJxkbI6flOwLfLKfM01Ri9_66sXemGRPW68BTqbP7S0Vv-VOcGCyc2pCukyaX8rLgaI9lmzeheum5u2PEaSE6lV6pjEdxivB_16DTuIX0xu_BfKOz6_4HcTy9HpOXpMsWffqkulc6GYgNGlGLfkxNeFH4fTxBigIVyH0RtXybs9BdjCe8HmJc-uaH4Y0o1thDQTRnKkJGqf8I3cTWL2BV9hm7Bwgw7IiOGayvuYfH3ryVNd-7sbAEaE8pHh1UXWAbDveTMhWH7MR3poQ2INtJjYr22KW6pAZ0_uRkxYfehEBYDn6xW06TDO9sop6Iwm29ApAgETlBqPYG5XEreMueTVUrVg-V6ikzcIGTGGrcyw8iMwf1HzhCN3F5P4RXt8-Ibqs04SrDGNPA=w400-h380-p-k-nu"
 champLink["Zyra"]="https://lh3.googleusercontent.com/fife/AAWUweWBhlBBlTb5efaDFeUOJMps6REcJO34fVK2RVsZQnFWBJ4yaF4vfhq5faoX6w8ssXaJdsvh4jeqAY3AJbLjAdNIWHMtido-TBUH7ujIcxKg1K7jaTuutgVTWOwEW2QRBYWaDqv2biU9MMzXdo0Skf9hRbgg8wAcKLaP3KCSHbXu2xIypolTBtdU5JWYWOLQ30t7mYOq25HJIEwOx4YcAdSM88LihSd2FjDEIpnpXFRRqN8PUuF0WjH-FhFTSg-p0wddvLxJht7Jm-fE6Uy3nnShS-YRJ47zS2_5jV5Um0yt5dKQsAboBPauvAN0XuK0b9svi4ql-EIP8anIFk0yOrgst5rddE-sXFXG2NbYuBDAhBAjZTKNqKbNynYXP6kskQQc_3x41huLE2Ai1h2ybmHBMoT2Vwd3DLPMJAV855R8VMnzg_ZUw2vbEkXLZCiKDmFXFLyyOZULsNj6BHXKTkatk7rKNiYJvNGoIWU24pjzJb2YTU8MT1FrUV1EWauYkH0K3k_ss0q02YZ_oahAnAqWBjoFIl6DDQzvnD7X18MGKKDZw19wMovO8RX0Pcq88vTG1tmKwv7ByPeo1UWErErzuYhKBDdm8S0cpSi-cQzm-ku97ySMHhJt1hqwUYJqYbkvbMteiBhZMA6GxsPLFH1yst0N7xQQkFsKzl9VAF6ewHM04DU2M5AckW3oKYXaTzETOwMo_1w8mkKE4_JgUqdzzM6IGzU9lw=w400-h380-p-k-nu"
 
+const util = require('util')
 module.exports = {
 
 	data: new SlashCommandBuilder()
@@ -214,6 +215,9 @@ module.exports = {
         const idx =  listOfChampionsLower.indexOf(championId)
 
         if (idx < 0) {
+
+            console.log(util.inspect(champLink), false, null, true)
+
             await interaction.editReply('Please enter a valid champion name');
 
         } else {
