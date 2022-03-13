@@ -14,6 +14,7 @@ const toxicity = require('@tensorflow-models/toxicity');
 
 // const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"] });
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, "GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"] });
+// const channel = client.channels.cache.get('952093274695405592');
 
 // Start client
 client.once('ready', () => {
@@ -104,11 +105,17 @@ client.on("messageCreate", async message => {
 					);
 					console.log("444444")
 					// message.reply({ ephemeral: true, embeds: [embed], components: [row] });
-					message.reply({ ephemeral: true, embeds: [embed]});
-					// message.reply("THAT IS NOT NICE!");
+					// message.reply({ ephemeral: true, embeds: [embed]});
+					
 					console.log("555555")
-					// message.delete().then(msg => console.log(`Deleted message from ${msg.author.username}`)).catch(console.error);
+					message.delete().then(msg => console.log(`Deleted message from ${msg.author.username}`)).catch(console.error);
 					console.log("666666")
+					client.channels.fetch('952093274695405592').then(channel => {
+						console.log(channel.name);
+						channel.send('THATS NOT NICE');
+					}).catch(console.error);
+					
+					// message.followUp("THATS NOT NICE")
 				} else {
 					console.log("No toxicity detected")
 				}
