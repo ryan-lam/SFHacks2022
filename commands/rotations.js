@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const leagueData = require('C:/Users/Ryan Lam/Desktop/SFHacks2022/leagueData/championFull.json')
+const CHAMPION_JSON_PATH = process.env.CHAMPION_JSON_PATH
+const leagueData = require(CHAMPION_JSON_PATH)
 const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 const axios = require('axios').default
 
