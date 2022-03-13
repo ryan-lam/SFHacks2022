@@ -32,25 +32,27 @@ for (const file of commandFiles) {
 
 // commands "routing"
 client.on('interactionCreate', async interaction => {
-	console.log(`${interaction.user.tag} in #${interaction.channel.name} triggered an interaction.`);
 	if (!interaction.isCommand()) return;
 	const command = client.commands.get(interaction.commandName);
 	if (!command) return;
+	console.log(`${interaction.user.tag} triggered an interaction: /${command.data.name}`);
 
-	console.log(command)
 
 	try {
-		if (interaction.commandName === 'tf') {
+		const deferCommands = ['champion']
+		if (deferCommands.includes(interaction.commandName)) {
+			console.log('Command Reply Defered')
 			await interaction.deferReply();
-			await wait(4000);
 			await command.execute(interaction);
 		} else {
 			await command.execute(interaction);
 		}
+
 	} catch (error) {
 		console.error(error);
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
+
 });
 
 
@@ -60,13 +62,21 @@ client.on("messageCreate", async message => {
     const content = message.content
 	console.log(`New message from ${message.author.username}: "${content}"`)
 
+	if (content.charAt(0) == '/') {
+		console.log("Invalid Command")
+		message.reply('Invalid Command. To see a list of commands, use /help')
+		return
+	}
+
 	// if (!message.author.bot) {
 	// if (message.author.id == 272477288640151552) {
 	if (message.author.id == 272477288640151552 || message.author.id == 290951901187538947) {
 		console.log("Checking for toxicity")
-		const toxicityThreshold = 0.8
+		const toxicityThreshold = 0.85
 		await toxicity.load(toxicityThreshold).then(model => {
+			console.log("Loading model")
 			model.classify([content]).then(data => {
+				console.log("Done checking for toxicity")
 				const identity_attack = ["Identity Attack", data[0].results[0].match]
 				const insult = ["Insult", data[1].results[0].match]
 				const obscene = ["Obscene", data[2].results[0].match]
@@ -77,17 +87,21 @@ client.on("messageCreate", async message => {
 				console.log(listOfToxicity)
 
 				if (listOfToxicity.length) {
+					console.log("111111")
 					listOfToxicity.join(', ')
+					console.log("222222")
 					const embed = new MessageEmbed()
 						.setColor('#FF0000')
 						.setTitle('TOXICITY WARNING!')
 						.setDescription(`Your has been identified as the following toxic behaviour(s): \n${listOfToxicity}`)
+					console.log('333333')
 					const row = new MessageActionRow().addComponents(
 						new MessageButton()
 							.setCustomId('DANGER')
 							.setLabel('DANGER')
 							.setStyle('DANGER'),
 					);
+					console.log("444444")
 					message.reply({ ephemeral: true, embeds: [embed], components: [row] });
 					message.delete();
 				} else {
