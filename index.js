@@ -104,15 +104,14 @@ client.on("messageCreate", async message => {
 							.setStyle('DANGER'),
 					);
 					console.log("444444")
-					// message.reply({ ephemeral: true, embeds: [embed], components: [row] });
-					// message.reply({ ephemeral: true, embeds: [embed]});
+			
 					
 					console.log("555555")
 					message.delete().then(msg => console.log(`Deleted message from ${msg.author.username}`)).catch(console.error);
 					console.log("666666")
 					client.channels.fetch('952093274695405592').then(channel => {
 						console.log(channel.name);
-						channel.send('THATS NOT NICE');
+						channel.send(`Your message has been identified as the following toxic behaviour(s) and deleted: \n${listOfToxicity}`);
 					}).catch(console.error);
 					
 					// message.followUp("THATS NOT NICE")
